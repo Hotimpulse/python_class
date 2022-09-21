@@ -1,0 +1,2 @@
+Compressed text: H1e1l2o1,1 1I1 1a1m1 1a6 1r6o1b1o1t1,1 1b3o2 1b1e2 1b1o2p1!2
+Decompressed text: Hello, I am aaaaaa rrrrrrobot, bbboo bee boop!!
