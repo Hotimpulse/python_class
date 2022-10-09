@@ -87,37 +87,6 @@
 # my_str = f'{display((Math(sym.latex(p1 + p2))))}' #--> рабочий вариант, но складывает только в онлайн Jupiter notebook, записать в файл не получается 
 # #(пишет в консоль <IPython.core.display.Math object>, а в файл пишет None)
 
-# with open("Seminar4/hw_task5_v1.py", "r") as f1, open("Seminar4/hw_task5_v2.py", "r") as f2, open("Seminar4/hw_task5_res.ipynb", "w") as add_txt:
-#     num_sum = map(sum, zip(map(int, f1.readlines()), map(int, f2.readlines())))
-#     add_txt.write(my_str) #--> не рабочий вариант, хотел чтобы делал хотя бы jupiter файл, в файл пишет None
-
-#---------
-#
-#
-#
-#
-#
-#
-#---------
-#другая провальная попытка, делаю два дня одну задачу без особого результата, поэтому забиваю
-#import re
-#p1 = str(p1) #['95*x**3', '+', '74*x**2', '+', '90*x']
-#p2 = str(p2) #['70*x**3', '+', '77*x**2', '+', '84*x']
-#lst1 = list(filter(str.isdigit, p1)) #['9', '5', '3', '7', '4', '2', '9', '0']
-#lst2 = list(filter(str.isdigit, p2)) #['7', '0', '3', '7', '7', '2', '8', '4']
-
-
-
-# x = re.sub('[x*123 ]', '', p1)
-# y = re.sub('[x*123]', '', p2)
-
-#x = list(map(int, x))
-
-# z = [int(i) for i in x if i.isdigit()]
-
-# print(z)
-#---------
-
 
 
 
