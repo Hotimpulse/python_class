@@ -1,51 +1,51 @@
 #functions
 from asyncore import write
-# import sys
-import csv
+import csv, sys
+from random import randint
 
 
 def add_data(i):
-    with open('python_class/Seminar7/phonebook_app/data.csv', 'a+', newline='') as file:
+    with open('./python_class/Seminar7/phonebook_app/data.csv', 'a+', newline='') as file:
         writer = csv.writer(file)
         writer.writerow(i)
 
 def view():
     data = []
-    with open('python_class/Seminar7/phonebook_app/data.csv') as file:
+    with open('./python_class/Seminar7/phonebook_app/data.csv') as file:
         reader = csv.reader(file)
         for row in reader:
             data.append(row)
-    print(data)
+    # print(data)
     return data
 
 def remove(i):
     def save(j):
-         with open('python_class/Seminar7/phonebook_app/data.csv', 'w', newline='') as file:
+         with open('./python_class/Seminar7/phonebook_app/data.csv', 'w', newline='') as file:
             writer = csv.writer(file)
             writer.writerows(j) 
 
     new_lst = []
-    tele = i
+    Tele = i
 
-    with open('python_class/Seminar7/phonebook_app/data.csv', 'r') as file:
+    with open('./python_class/Seminar7/phonebook_app/data.csv', 'r') as file:
         reader = csv.reader(file)
         for row in reader:
             new_lst.append(row)
             
-            for element in row:
-                if element == tele:
-                    new_lst.remove(row)
+        for element in row:
+            if element == Tele:
+                new_lst.remove(row)
     save(new_lst)
 
 def update(i):
     def update_newlst(j):
-        with open('python_class/Seminar7/phonebook_app/data.csv', 'w', newline='') as file:
+        with open('./python_class/Seminar7/phonebook_app/data.csv', 'a', newline='') as file:
             writer = csv.writer(file)
             writer.writerow(j)
     new_lst = []
     tele = i[0]
 
-    with open('python_class/Seminar7/phonebook_app/data.csv', 'r') as file:
+    with open('./python_class/Seminar7/phonebook_app/data.csv', 'r') as file:
         reader = csv.reader(file)
         for row in reader:
             new_lst.append(row)
@@ -55,24 +55,19 @@ def update(i):
                     name = i[2]
                     tele = i[3]
                     mail = i[4] 
-
+                    id = randint(1,100)
                     data = [id, name, tele, mail]
                     index = new_lst.index(row)
-                    new_lst[index] = data 
+                    new_lst[index] = data
+    update_newlst(data)    
+# def search(i):
+#     data = []
+#     telephone = i
 
-def search(i):
-    data = []
-    tele = i
-
-    with open('python_class/Seminar7/phonebook_app/data.csv', 'r') as file:
-        reader = csv.reader(file)
-        for row in reader:
-            for element in row:
-                if element == tele:
-                    data.append(row)
-    return data
-
-
-
-
-
+#     with open('python_class/Seminar7/phonebook_app/data.csv', 'r') as file:
+#         reader = csv.reader(file)
+#         for row in reader:
+#             for element in row:
+#                 if element == telephone:
+#                     data.append(row)
+#     return data

@@ -10,28 +10,27 @@ THIRD_COL = '#fD293E'
 
 window = Tk()
 window.title('Hot Line Bling')
-window.geometry('600x600')
+window.geometry('510x530')
 window.configure(background = MAIN_BG)
 window.resizable(height = False, width = False)
-
 
 #frames
 
 frame_top = Frame(window, width = 510, height = 50, bg = THIRD_COL)
 frame_top.grid(row=0, column=0, padx=0, pady=1)
 
-frame_middle = Frame(window, width = 510, height = 400, bg = THIRD_COL)
+frame_middle = Frame(window, width = 510, height = 250, bg = THIRD_COL)
 frame_middle.grid(row=1, column=0, padx=0, pady=1)
 
-frame_bottom = Frame(window, width = 510, height = 150, bg = THIRD_COL, relief="flat")
-frame_bottom.grid(row=2, column=0, columnspan=2, padx=0, pady=1, sticky=NW)
+frame_bottom = Frame(window, width = 510, height = 300, bg = THIRD_COL, relief="flat")
+frame_bottom.grid(row=2, column=0, padx=0, pady=1, sticky=NW)
 
 #data
 
 def show_data():
     global tree
 
-    list_data = ['ID', 'Name', 'Tele #', 'Email']
+    list_data = ['ID', 'Name', 'Telephone #', 'Email']
 
     demo_lst = view()
 
@@ -55,9 +54,9 @@ def show_data():
 
     #columns
 
-    tree.column(0, width=20, anchor=NW)
+    tree.column(0, width=30, anchor=NW)
     tree.column(1, width=120, anchor=NW)
-    tree.column(2, width=200, anchor=NW)
+    tree.column(2, width=190, anchor=NW)
     tree.column(3, width=160, anchor=NW)
 
     for item in demo_lst:
@@ -121,15 +120,14 @@ def to_update():
             entry_tele.delete(0, 'end')
             entry_mail.delete(0, 'end')
 
-            for widget in frame_middle.winfo_children():
+            for widget in frame_bottom.winfo_children():
                 widget.destroy()
             
             btn_confirm.destroy()
-
             show_data()
 
         btn_confirm = Button(frame_middle, border=0, width=4, text="Confirm", height=1, font = ('Roboto 14'), bg = THIRD_COL, fg=FIRST_COL, command=confirm)
-        btn_confirm.place(x=435, y=75)
+        btn_confirm.place(x=435, y=65)
 
     except IndexError:
         messagebox.showerror('Error', 'Select something from the table')
@@ -139,34 +137,34 @@ def to_remove():
         tree_data = tree.focus()
         tree_dictionary = tree.item(tree_data)
         tree_list = tree_dictionary['values'] 
-        tree_tele = str[tree_list[2]]
-
+        tree_tele = str(tree_list[2])
         remove(tree_tele)
 
         messagebox.showinfo('Success', 'Data deleted')
 
-        for widget in frame_middle.winfo_children():
-                widget.destroy()
+        # for widget in frame_middle.winfo_children():
+        #     widget.destroy()
         show_data()
     except IndexError:
         messagebox.showerror('Error', 'Select something from the table') 
-def to_search():
-    tele = entry_tele.get()
-    data = search(tele)
 
-    def del_cmd():
-        tree.delete(*tree.get_children())
+# def to_search():
+#     telephone = entry_tele.get()
+#     data = search(telephone)
+
+#     def del_cmd():
+#         tree.delete(*tree.get_children())
     
-    del_cmd()
+#     del_cmd()
 
-    for item in data:
-        tree.insert('', 'end', values = item)
+#     for item in data:
+#         tree.insert('', 'end', values = item)
 
-    entry_search.delete(0, 'end')
+#     entry_search.delete(0, 'end')
 
 #title_and_widgets
 
-app_name = Label(frame_top, text = "Phonebook", height = 1, font=('Roboto 25 bold '), bg = MAIN_BG, fg = FIRST_COL)
+app_name = Label(frame_top, text = "Phonebook", height = 1, font=('Roboto 25 bold'), bg = MAIN_BG, fg = FIRST_COL)
 app_name.place(x=5, y=5)
 
 #mid section
@@ -193,21 +191,21 @@ entry_mail.place(x=80, y=90)
 
 #btns
 
-btn_search = Button(frame_middle, border=0, text = "Search", height=1, justify="center", font = ('Roboto 14'), bg = MAIN_BG, fg=FIRST_COL, command=to_search)
-btn_search.place(x=350, y=150)
-entry_search = Entry(frame_middle, justify="center", highlightthickness=1, relief="solid", width=20)
-entry_search.place(x=150, y=150)
+# btn_search = Button(frame_middle, border=0, text = "Save to CSV", height=1, justify="center", font = ('Roboto 14'), bg = MAIN_BG, fg=FIRST_COL, command=to_search)
+# btn_search.place(x=350, y=150)
+# entry_search = Entry(frame_middle, justify="center", highlightthickness=1, relief="solid", width=20)
+# entry_search.place(x=150, y=150)
 
-btn_view = Button(frame_middle, border=0, text = "View", height=1, justify="center", font = ('Roboto 14'), bg = MAIN_BG, fg=FIRST_COL, command=show_data)
-btn_view.place(x=350, y=15)
+btn_view = Button(frame_middle, border=0, text = "Show all", height=1, justify="center", font = ('Roboto 14'), bg = MAIN_BG, fg=FIRST_COL, command=show_data)
+btn_view.place(x=350, y=0)
 
 btn_add = Button(frame_middle, border=0, text = "Add", height=1, justify="center", font = ('Roboto 14'), bg = MAIN_BG, fg=FIRST_COL, command=insert)
-btn_add.place(x=350, y=45)
+btn_add.place(x=350, y=30)
 
 btn_update = Button(frame_middle, border=0, text = "Update", height=1, justify="center", font = ('Roboto 14'), bg = MAIN_BG, fg=FIRST_COL, command=to_update)
-btn_update.place(x=350, y=75)
+btn_update.place(x=350, y=60)
 
 btn_delete = Button(frame_middle, border=0, text = "Delete", height=1, justify="center", font = ('Roboto 14'), bg = THIRD_COL, fg=FIRST_COL, command=to_remove)
-btn_delete.place(x=350, y=115)
+btn_delete.place(x=350, y=90)
 
 window.mainloop()
