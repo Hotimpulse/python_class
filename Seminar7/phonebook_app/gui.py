@@ -1,6 +1,6 @@
 from tkinter import *
-from tkinter import ttk
-from tkinter import messagebox
+from tkinter import ttk, messagebox, filedialog
+import tkinter as tk
 from controller import *
 
 #colors
@@ -64,6 +64,17 @@ def show_data():
         
 show_data()
 
+#impport csvs
+def openfile():
+    
+    file = filedialog.askopenfilename()
+    output_file = open('./python_class/Seminar7/phonebook_app/data.csv', "a", newline='')
+
+    with open(f"{file}", "r", newline='') as scan:
+        output_file.write(scan.read())
+
+    output_file.close()
+    show_data()
 #insertion of data
 
 def insert():
@@ -127,7 +138,7 @@ def to_update():
             show_data()
 
         btn_confirm = Button(frame_middle, border=0, width=4, text="Confirm", height=1, font = ('Roboto 14'), bg = THIRD_COL, fg=FIRST_COL, command=confirm)
-        btn_confirm.place(x=435, y=65)
+        btn_confirm.place(x=435, y=60)
 
     except IndexError:
         messagebox.showerror('Error', 'Select something from the table')
@@ -147,20 +158,6 @@ def to_remove():
         show_data()
     except IndexError:
         messagebox.showerror('Error', 'Select something from the table') 
-
-# def to_search():
-#     telephone = entry_tele.get()
-#     data = search(telephone)
-
-#     def del_cmd():
-#         tree.delete(*tree.get_children())
-    
-#     del_cmd()
-
-#     for item in data:
-#         tree.insert('', 'end', values = item)
-
-#     entry_search.delete(0, 'end')
 
 #title_and_widgets
 
@@ -191,13 +188,8 @@ entry_mail.place(x=80, y=90)
 
 #btns
 
-# btn_search = Button(frame_middle, border=0, text = "Save to CSV", height=1, justify="center", font = ('Roboto 14'), bg = MAIN_BG, fg=FIRST_COL, command=to_search)
-# btn_search.place(x=350, y=150)
-# entry_search = Entry(frame_middle, justify="center", highlightthickness=1, relief="solid", width=20)
-# entry_search.place(x=150, y=150)
-
-btn_view = Button(frame_middle, border=0, text = "Show all", height=1, justify="center", font = ('Roboto 14'), bg = MAIN_BG, fg=FIRST_COL, command=show_data)
-btn_view.place(x=350, y=0)
+btn_import = Button(frame_middle, border=0, text = "Import", height=1, justify="center", font = ('Roboto 14'), bg = MAIN_BG, fg=FIRST_COL, command=openfile)
+btn_import.place(x=350, y=0)
 
 btn_add = Button(frame_middle, border=0, text = "Add", height=1, justify="center", font = ('Roboto 14'), bg = MAIN_BG, fg=FIRST_COL, command=insert)
 btn_add.place(x=350, y=30)

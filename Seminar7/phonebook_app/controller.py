@@ -60,14 +60,3 @@ def update(i):
                     index = new_lst.index(row)
                     new_lst[index] = data
     update_newlst(data)    
-# def search(i):
-#     data = []
-#     telephone = i
-
-#     with open('python_class/Seminar7/phonebook_app/data.csv', 'r') as file:
-#         reader = csv.reader(file)
-#         for row in reader:
-#             for element in row:
-#                 if element == telephone:
-#                     data.append(row)
-#     return data
