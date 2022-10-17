@@ -6,4 +6,8 @@
 3. `Adding` new entries to the phonebook
 4. `Deleting` entries from the phonebook
 
+### Features:
+* Support for json files added
+
 * Test csv file with properly formatted data - `data_copy.csv` - included
+* Test json file - `json_test.json` - included

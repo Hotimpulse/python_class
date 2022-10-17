@@ -2,6 +2,7 @@ from tkinter import *
 from tkinter import ttk, messagebox, filedialog
 import tkinter as tk
 from controller import *
+import pandas as pd
 
 #colors
 FIRST_COL = '#000000'
@@ -73,8 +74,22 @@ def openfile():
     with open(f"{file}", "r", newline='') as scan:
         output_file.write(scan.read())
 
-    output_file.close()
+    output_file.close
     show_data()
+
+#import jsons
+
+def load_json():
+    file = filedialog.askopenfilename()
+    output_file = open('./python_class/Seminar7/phonebook_app/data.csv', "a", newline='')
+    with open(f'{file}', "r", newline='') as json_file:
+        df = pd.read_json(json_file, orient = 'values')
+        df.to_csv(output_file, index = 'ID')
+
+    output_file.close
+    json_file.close
+    show_data()
+
 #insertion of data
 
 def insert():
@@ -131,8 +146,8 @@ def to_update():
             entry_tele.delete(0, 'end')
             entry_mail.delete(0, 'end')
 
-            for widget in frame_bottom.winfo_children():
-                widget.destroy()
+            # for widget in frame_bottom.winfo_children():
+            #     widget.destroy()
             
             btn_confirm.destroy()
             show_data()
@@ -188,7 +203,7 @@ entry_mail.place(x=80, y=90)
 
 #btns
 
-btn_import = Button(frame_middle, border=0, text = "Import", height=1, justify="center", font = ('Roboto 14'), bg = MAIN_BG, fg=FIRST_COL, command=openfile)
+btn_import = Button(frame_middle, border=0, text = "Import", height=1, justify="center", font = ('Roboto 14'), bg = MAIN_BG, fg=FIRST_COL, command=openfile or load_json)
 btn_import.place(x=350, y=0)
 
 btn_add = Button(frame_middle, border=0, text = "Add", height=1, justify="center", font = ('Roboto 14'), bg = MAIN_BG, fg=FIRST_COL, command=insert)

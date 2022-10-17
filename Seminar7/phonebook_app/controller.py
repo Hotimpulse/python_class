@@ -1,6 +1,6 @@
 #functions
 from asyncore import write
-import csv, sys
+import csv, json
 from random import randint
 
 
@@ -55,8 +55,11 @@ def update(i):
                     name = i[2]
                     tele = i[3]
                     mail = i[4] 
-                    id = randint(1,100)
+                    id = randint(1,1000)
                     data = [id, name, tele, mail]
                     index = new_lst.index(row)
                     new_lst[index] = data
+            for elements in id:
+                if elements == id:
+                    print('This ID is already taken!')
     update_newlst(data)    
