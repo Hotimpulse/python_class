@@ -1,27 +1,8 @@
 1,Slava,113423,slava@gmail.com
 2,Lev,687577,lev@gmail.com
 80,LevX,6875277,levx@gmail.com
-{
-  "ID": 5
-  "Name": 'Lols',
-  "Tele": "89098",
-  "Email": 'xxx@gmail.com'
-},
-{
-  "ID": 5
-  "Name": 'Lols',
-  "Tele": "89098",
-  "Email": 'xxx@gmail.com'
-},
-{
-  "ID": 5
-  "Name": 'Lols',
-  "Tele": "89098",
-  "Email": 'xxx@gmail.com'
-},
-{
-  "ID": 5
-  "Name": 'Lols',
-  "Tele": "89098",
-  "Email": 'xxx@gmail.com'
-}
+ID,Name,Tele,Email
+5,Lols4,89098,xx2@gmail.com
+6,Lols3,890198,xx3@gmail.com
+7,Lols2,8901298,xx4@gmail.com
+8,Lols1,8903298,xx5@gmail.com

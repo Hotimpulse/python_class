@@ -1,6 +1,5 @@
 #functions
-from asyncore import write
-import csv, json
+import csv
 from random import randint
 
 
@@ -15,7 +14,6 @@ def view():
         reader = csv.reader(file)
         for row in reader:
             data.append(row)
-    # print(data)
     return data
 
 def remove(i):
@@ -26,7 +24,6 @@ def remove(i):
 
     new_lst = []
     Tele = i
-
     with open('./python_class/Seminar7/phonebook_app/data.csv', 'r') as file:
         reader = csv.reader(file)
         for row in reader:

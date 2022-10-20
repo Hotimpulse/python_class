@@ -1,8 +1,10 @@
+from distutils.ccompiler import new_compiler
 from tkinter import *
 from tkinter import ttk, messagebox, filedialog
 import tkinter as tk
 from controller import *
 import pandas as pd
+import json, os
 
 #colors
 FIRST_COL = '#000000'
@@ -33,8 +35,6 @@ def show_data():
 
     list_data = ['ID', 'Name', 'Telephone #', 'Email']
 
-    demo_lst = view()
-
     tree = ttk.Treeview(frame_bottom, selectmode="extended", columns=list_data, show="headings")
     
     vert_scroll = ttk.Scrollbar(frame_bottom, orient="vertical", command=tree.yview)
@@ -60,35 +60,48 @@ def show_data():
     tree.column(2, width=190, anchor=NW)
     tree.column(3, width=160, anchor=NW)
 
+    demo_lst = view()
+
     for item in demo_lst:
         tree.insert("", "end", values=item)
         
 show_data()
 
-#impport csvs
+#import csvs
 def openfile():
-    
-    file = filedialog.askopenfilename()
     output_file = open('./python_class/Seminar7/phonebook_app/data.csv', "a", newline='')
 
-    with open(f"{file}", "r", newline='') as scan:
-        output_file.write(scan.read())
-
-    output_file.close
+    file = filedialog.askopenfilename()
+    with open(f"{file}", "r", newline='') as some_file:
+        if os.path.splitext(file)[1] == ".csv":
+            output_file.write(some_file.read())
+        if os.path.splitext(file)[1] == ".json":
+            json_obj = pd.read_json(some_file, orient='index')
+            csvData = json_obj.to_csv(output_file, index=None)
+            for row in csvData:
+                if row == 'ID,Name,Tele,Email':
+                    row.pop()
+                    # row.append(csvData, mode='a')
     show_data()
+    output_file.close
+    some_file.close
 
 #import jsons
 
-def load_json():
-    file = filedialog.askopenfilename()
-    output_file = open('./python_class/Seminar7/phonebook_app/data.csv', "a", newline='')
-    with open(f'{file}', "r", newline='') as json_file:
-        df = pd.read_json(json_file, orient = 'values')
-        df.to_csv(output_file, index = 'ID')
+# def load_json():
+#     output_file = open('./python_class/Seminar7/phonebook_app/data.csv')
+#     file = filedialog.askopenfilename()
+#     with open(f'{file}', "w") as json_file:
+#         if os.path.splitext(file)[1] == ".json":
+            
+#         # json_data = json.loads(json_file)
+#         # for item in json_data:
+#         pdObj = pd.read_json(json_file, orient='index')
+#         csvData = pdObj.to_csv(index=False)     
 
-    output_file.close
-    json_file.close
-    show_data()
+#     show_data()
+#     output_file.close
+#     json_file.close
 
 #insertion of data
 
@@ -151,7 +164,7 @@ def to_update():
             
             btn_confirm.destroy()
             show_data()
-
+        global btn_confirm
         btn_confirm = Button(frame_middle, border=0, width=4, text="Confirm", height=1, font = ('Roboto 14'), bg = THIRD_COL, fg=FIRST_COL, command=confirm)
         btn_confirm.place(x=435, y=60)
 
@@ -174,6 +187,21 @@ def to_remove():
     except IndexError:
         messagebox.showerror('Error', 'Select something from the table') 
 
+def clear():
+    ID_num = entry_id.get()
+    Name = entry_name.get()
+    Tele = entry_tele.get()
+    Email = entry_mail.get()
+
+    if ID_num == '' or Name == '' or Tele == '' or Email == '':
+        messagebox.showwarning('data', 'Please fill all fields')
+    else:
+        entry_id.delete(0, 'end')
+        entry_name.delete(0, 'end')
+        entry_tele.delete(0, 'end')
+        entry_mail.delete(0, 'end')
+        btn_confirm.destroy()
+        
 #title_and_widgets
 
 app_name = Label(frame_top, text = "Phonebook", height = 1, font=('Roboto 25 bold'), bg = MAIN_BG, fg = FIRST_COL)
@@ -203,7 +231,7 @@ entry_mail.place(x=80, y=90)
 
 #btns
 
-btn_import = Button(frame_middle, border=0, text = "Import", height=1, justify="center", font = ('Roboto 14'), bg = MAIN_BG, fg=FIRST_COL, command=openfile or load_json)
+btn_import = Button(frame_middle, border=0, text = "Import", height=1, justify="center", font = ('Roboto 14'), bg = MAIN_BG, fg=FIRST_COL, command=openfile)
 btn_import.place(x=350, y=0)
 
 btn_add = Button(frame_middle, border=0, text = "Add", height=1, justify="center", font = ('Roboto 14'), bg = MAIN_BG, fg=FIRST_COL, command=insert)
@@ -214,5 +242,8 @@ btn_update.place(x=350, y=60)
 
 btn_delete = Button(frame_middle, border=0, text = "Delete", height=1, justify="center", font = ('Roboto 14'), bg = THIRD_COL, fg=FIRST_COL, command=to_remove)
 btn_delete.place(x=350, y=90)
+
+btn_clear = Button(frame_middle, border=0, text = "Clear", height=1, justify="center", font = ('Roboto 14'), bg = THIRD_COL, fg=FIRST_COL, command=clear)
+btn_clear.place(x=350, y=130)
 
 window.mainloop()
