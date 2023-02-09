@@ -19,7 +19,7 @@ def commands(update, context):
 def get_weather(update, context):
     CITY = update.message.text
     update.message.reply_text("Enter a city's name: ")
-    url = f'https://api.openweathermap.org/data/2.5/weather?q={CITY}&lang=en&appid=a9adf5362d777b3a3e388cb43506243e&units=metric'
+    url = f'https://api.openweathermap.org/data/2.5/weather?q={CITY}&lang=en&appid=/.../units=metric' //took out the token
     response = requests.get(url).json()
     print(response)
     temp = response['main']['temp']
