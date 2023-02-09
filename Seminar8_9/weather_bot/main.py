@@ -2,7 +2,7 @@ from controller import *
 import telegram.ext
 
 
-TOKEN = '5708796742:AAE3AujmE5BS50AQgHtE6JH5dpI8YXZODuU'
+TOKEN = '/.../'
 
 updater = telegram.ext.Updater(TOKEN, use_context=True)
 
